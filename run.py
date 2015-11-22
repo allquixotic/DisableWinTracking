@@ -616,7 +616,7 @@ def modifyregistry(regdict, name):
             _winreg.CloseKey(modreg)
             print "{1}: {0} key successfully modified.".format(title, name)
         except (WindowsError, IOError):
-            logging.exception("Registry: Unable to modify {0} key.".format(title, name))
+            logging.exception("{1}: Unable to modify {0} key.".format(title, name))
             print "{1}: Unable to modify {0} key.".format(title, name)
 
 
