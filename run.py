@@ -366,7 +366,7 @@ class MainFrame(wx.Frame):
             blockips(iplist=self.ippicker.GetSelections(), undo=undo)
         if self.wdwsbox.IsChecked():
             logging.info("Policy Manager box ticked")
-            stopdefendwifi(val=val)
+            stopdefendwifi(defendersenseval=val)
         if self.onedrivedbox.IsChecked():
             logging.info("OneDrive box ticked")
             modifyonedrive(installerfunc=installerfunc, filesyncval=filesyncval)
