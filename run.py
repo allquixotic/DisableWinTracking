@@ -448,7 +448,7 @@ class MainFrame(wx.Frame):
         if self.extrahostbox.IsChecked():
             modifyhostfile(undo=True, domainlist=self.extrapicker.GetSelections(), name="Extra domain clutter control")
         if self.ipbox.IsChecked():
-            blockips(undo=True)
+            blockips(iplist=self.ippicker.GetSelections(), undo=True)
         self.console.consolebox.Clear()
 
 
