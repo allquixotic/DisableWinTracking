@@ -12,9 +12,17 @@ import win32serviceutil
 import wx
 import wx.lib.wordwrap
 import pywintypes
+import win32com.shell.shell as shell
 from wx.lib.itemspicker import ItemsPicker, IP_SORT_CHOICES, IP_SORT_SELECTED, IP_REMOVE_FROM_CHOICES
 
 vernumber = "v2.5.3"  # Version number
+ASADMIN = 'asadmin'
+
+if sys.argv[-1] != ASADMIN and not bool(ctypes.windll.advpack.IsNTAdmin(0, None)):
+    script = os.path.abspath(sys.argv[0])
+    params = ' '.join([script] + sys.argv[1:] + [ASADMIN])
+    shell.ShellExecuteEx(lpVerb='runas', lpFile=sys.executable, lpParameters=params, nShow=5)
+    sys.exit(0)
 
 # Configure the Logging module
 try:
@@ -78,7 +86,9 @@ class MainFrame(wx.Frame):
         panel = wx.Panel(self)  # Frame panel
 
         # Test for elevation
-        if ctypes.windll.shell32.IsUserAnAdmin() != 0:
+        has_admin = bool(ctypes.windll.advpack.IsNTAdmin(0, None))
+        
+        if not has_admin:
             warn = wx.MessageDialog(parent=self,
                                     message="Program requires elevation, please run it as an administrator",
                                     caption="ERROR", style=wx.OK | wx.ICON_WARNING)
