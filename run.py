@@ -21,7 +21,7 @@ ASADMIN = 'asadmin'
 if sys.argv[-1] != ASADMIN and not bool(ctypes.windll.advpack.IsNTAdmin(0, None)):
     script = os.path.abspath(sys.argv[0])
     params = ' '.join([script] + sys.argv[1:] + [ASADMIN])
-    shell.ShellExecuteEx(lpVerb='runas', lpFile=sys.executable, lpParameters=params, nShow=5)
+    shell.ShellExecuteEx(lpVerb='runas', lpFile=sys.executable, lpParameters=params, nShow=1)
     sys.exit(0)
 
 # Configure the Logging module
@@ -95,6 +95,8 @@ class MainFrame(wx.Frame):
             warn.ShowModal()
             sys.exit()
 
+        self.console = ConsoleFrame()
+            
         # Get icon
         shell32file = os.path.join(os.environ['SYSTEMROOT'], 'System32\\shell32.dll')
         self.SetIcon(wx.Icon(shell32file + ";315", wx.BITMAP_TYPE_ICO))
